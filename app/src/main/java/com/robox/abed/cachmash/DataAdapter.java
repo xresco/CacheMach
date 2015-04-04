@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.etsy.android.grid.util.DynamicHeightImageView;
+import com.robox.abed.cachemash.CacheMash;
+import com.robox.abed.cachemash.ImageRequest;
+import com.robox.abed.cachemash.RequestHandler;
 
 import java.util.List;
 
-import CacheMash.*;
+
 
 
 public class DataAdapter extends ArrayAdapter<Data> {
@@ -47,6 +49,7 @@ public class DataAdapter extends ArrayAdapter<Data> {
             holder.image = (ImageView)row.findViewById(R.id.image);
             holder.title = (TextView)row.findViewById(R.id.title);
             holder.description = (TextView)row.findViewById(R.id.description);
+            holder.progressBar=(ProgressBar)row.findViewById(R.id.progress_bar);
             row.setTag(holder);
         }
         else {
@@ -62,14 +65,21 @@ public class DataAdapter extends ArrayAdapter<Data> {
         {
             public void onSucess(Object payload)
             {
-                byte[] imageBytes=(byte[])payload;
-                Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                Log.d(LOG_TAG, "success3 " + payload);
-                holder.image.setImageBitmap(bitmap);
+                try {
+                    byte[] imageBytes = (byte[]) payload;
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                    Log.d(LOG_TAG, "success " + payload);
+                    holder.image.setImageBitmap(bitmap);
+                    holder.progressBar.setVisibility(View.GONE);
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
             public void onFail(String errorMessage)
             {
-                Log.d(LOG_TAG,"fail3 "+errorMessage);
+                Log.d(LOG_TAG,"fail "+errorMessage);
+                holder.progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -79,8 +89,6 @@ public class DataAdapter extends ArrayAdapter<Data> {
                 .registerHandler(rh)
                 .build();
 
-
-//        holder.image.setHeightRatio(1.0);
         holder.title.setText(data.title);
         holder.description.setText(data.description);
 
@@ -91,5 +99,6 @@ public class DataAdapter extends ArrayAdapter<Data> {
         ImageView image;
         TextView title;
         TextView description;
+        ProgressBar progressBar;
     }
 }

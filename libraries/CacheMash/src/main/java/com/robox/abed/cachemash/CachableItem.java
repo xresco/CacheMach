@@ -1,4 +1,4 @@
-package CacheMash;
+package com.robox.abed.cachemash;
 
 import java.io.Serializable;
 

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CachMash.iml" filepath="$PROJECT_DIR$/CachMash.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libraries/CacheMash/CacheMash.iml" filepath="$PROJECT_DIR$/libraries/CacheMash/CacheMash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CacheMash.iml" filepath="$PROJECT_DIR$/CacheMash.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

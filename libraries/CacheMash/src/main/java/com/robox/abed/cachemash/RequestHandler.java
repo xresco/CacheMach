@@ -1,4 +1,4 @@
-package CacheMash;
+package com.robox.abed.cachemash;
 
 /**
  * Created by mindvalley on 4/3/15.

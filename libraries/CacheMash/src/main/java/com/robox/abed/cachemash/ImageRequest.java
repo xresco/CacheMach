@@ -1,11 +1,11 @@
-package CacheMash;
+package com.robox.abed.cachemash;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
@@ -26,17 +26,19 @@ public class ImageRequest extends Request {
                 .load(url)
                 .asBitmap()
                 .toBytes()
-                .into(new SimpleTarget<byte[]>(300,300) {
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(new SimpleTarget<byte[]>(300, 300) {
                     @Override
                     public void onResourceReady(byte[] resource, GlideAnimation<? super byte[]> glideAnimation) {
-                        payload=resource;
-                        Log.d(LOG_TAG," success:: "+payload);
+                        payload = resource;
+                        Log.d(LOG_TAG, " success:: " + payload);
                         notifyHandlers(true);
                     }
+
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        errorMessage=e.getMessage();
-                        Log.d(LOG_TAG," fail:: "+errorMessage);
+                        errorMessage = e.getMessage();
+                        Log.d(LOG_TAG, " fail:: " + errorMessage);
                         notifyHandlers(false);
                     }
                 });

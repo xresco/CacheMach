@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple  android:color="@color/grey_dark_custom"
+<ripple  android:color="@color/ripple_selection_color"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
     <item android:drawable="@drawable/tile_touch_selector"/>

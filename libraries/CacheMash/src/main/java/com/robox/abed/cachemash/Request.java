@@ -1,10 +1,9 @@
-package CacheMash;
+package com.robox.abed.cachemash;
 
 import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**

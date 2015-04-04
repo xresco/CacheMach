@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryDark" >#3B73B4</color>
+    <color name="colorPrimaryDark" >#303F9F</color>
+    <color name="colorPrimary" >#3F51B5</color>
+    <color name="colorAccent" >#FF4081</color>
+    <color name="navigationBar" >#993F51B5</color>
 
+    <color name="selection_color">#bbbbbb</color>
+    <color name="ripple_selection_color">#dddddd</color>
     <color name="grey_light_custom">#999999</color>
     <color name="grey_dark_custom">#444444</color>
     <color name="grey">#888888</color>

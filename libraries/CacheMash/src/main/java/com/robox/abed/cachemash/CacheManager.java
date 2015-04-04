@@ -1,13 +1,12 @@
-package CacheMash;
+package com.robox.abed.cachemash;
 
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -17,7 +16,7 @@ public class CacheManager {
 
     private final String LOG_TAG=getClass().getName();
     private HashMap<String,CachableItem> items;
-    private int maxSize=100000; //Size in bytes
+    private int maxSize=5*1024*1024; //Size in bytes
     private static CacheManager instance;
 
     private CacheManager()
@@ -67,7 +66,9 @@ public class CacheManager {
             Collections.sort(list, new CachableItemComparator());
             while (getCachSize()>=maxSize)
             {
+
                 items.remove(list.get(0).getUrl());
+                list.remove(0);
                 if(items.size()==0)
                     break;
             }
