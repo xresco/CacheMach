@@ -1,16 +1,20 @@
 package com.robox.abed.cachmash;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.RelativeLayout;
+import android.view.View;
+
 import com.etsy.android.grid.StaggeredGridView;
 import com.robox.abed.cachemash.CacheMash;
+import com.robox.abed.cachemash.DownloadFinishListener;
 import com.robox.abed.cachemash.ImageRequest;
-import com.robox.abed.cachemash.RequestHandler;
+import com.robox.abed.cachemash.JsonRequest;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 
@@ -19,7 +23,6 @@ public class MainActivity extends ActionBarActivity {
     final String LOG_TAG=getClass().getName();
     private StaggeredGridView mGridView;
     private DataAdapter mAdapter;
-    private final int SAMPLE_DATA_ITEM_COUNT=10;
 
 
     @Override
@@ -30,11 +33,30 @@ public class MainActivity extends ActionBarActivity {
         mAdapter = new DataAdapter(this, R.layout.tile_item, generateSampleData());
         mGridView.setAdapter(mAdapter);
 
+        final JsonRequest jReq=new JsonRequest(getApplicationContext(),"http://api.geonames.org/citiesJSON?north=44.1&south=-9.9&east=-22.4&west=55.2&lang=de&username=demo");
+        jReq.registerListener(new DownloadFinishListener<JSONObject>() {
+            @Override
+            public void onSucess(JSONObject payload) {
+                Log.d(LOG_TAG,"Success Json "+payload);
+              
+            }
+
+            @Override
+            public void onFail(String errorMessage) {
+                Log.d(LOG_TAG,"failed Json "+errorMessage);
+            }
+        });
+
+        CacheMash.load(jReq)
+                .build();
+
+
+
+
 
     }
 
     public  ArrayList<Data> generateSampleData() {
-        String repeat = " repeat";
         final ArrayList<Data> datas = new ArrayList<>();
 
         Data data = new Data();
@@ -94,69 +116,6 @@ public class MainActivity extends ActionBarActivity {
         return datas;
     }
 
-    public void testCacheMash()
-    {
-        RequestHandler rh1=new RequestHandler();
-        rh1.setOnDownloadFinishListener(new RequestHandler.DownloadFinishListener()
-        {
-            public void onSucess(Object payload)
-            {
-                Log.d(LOG_TAG,"success1 "+payload);
-            }
-            public void onFail(String errorMessage)
-            {
-                Log.d(LOG_TAG,"fail1 "+errorMessage);
-            }
-        });
-
-
-        RequestHandler rh2=new RequestHandler();
-        rh2.setOnDownloadFinishListener(new RequestHandler.DownloadFinishListener()
-        {
-            public void onSucess(Object payload)
-            {
-                Log.d(LOG_TAG,"success2 "+payload);
-            }
-            public void onFail(String errorMessage)
-            {
-                Log.d(LOG_TAG,"fail2 "+errorMessage);
-            }
-        });
-
-        RequestHandler rh3=new RequestHandler();
-        rh3.setOnDownloadFinishListener(new RequestHandler.DownloadFinishListener()
-        {
-            public void onSucess(Object payload)
-            {
-                Log.d(LOG_TAG,"success3 "+payload);
-            }
-            public void onFail(String errorMessage)
-            {
-                Log.d(LOG_TAG,"fail3 "+errorMessage);
-            }
-        });
-
-
-        String url="https://yt3.ggpht.com/-rgbWQWYxxNw/AAAAAAAAAAI/AAAAAAAAAAA/x_yiQE9Zxq0/s88-c-k-no/photo.jpg";
-        String url2="http://i.ytimg.com/vi/EkvRbeL6Ybc/maxresdefault.jpg";
-        CacheMash.load(new ImageRequest(getApplicationContext(), url))
-                .registerHandler(rh1)
-                .registerHandler(rh2)
-                .build();
-
-        CacheMash.load(new ImageRequest(getApplicationContext(),url2))
-                .registerHandler(rh3)
-                .build();
-//
-//        CacheMash.load(new ImageRequest(getApplicationContext(),url))
-//                .registerHandler(rh1)
-//                .build();
-//
-//        CacheMash.load(new ImageRequest(getApplicationContext(),url))
-//                .registerHandler(rh1)
-//                .build();
-
-    }
 
 
 }

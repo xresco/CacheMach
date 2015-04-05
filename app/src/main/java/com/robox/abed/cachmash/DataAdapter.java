@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.robox.abed.cachemash.CacheMash;
+import com.robox.abed.cachemash.DownloadFinishListener;
 import com.robox.abed.cachemash.ImageRequest;
-import com.robox.abed.cachemash.RequestHandler;
 
 import java.util.List;
 
@@ -59,34 +59,24 @@ public class DataAdapter extends ArrayAdapter<Data> {
         final Data data = datas.get(position);
 
 
-
-        RequestHandler rh=new RequestHandler();
-        rh.setOnDownloadFinishListener(new RequestHandler.DownloadFinishListener()
-        {
-            public void onSucess(Object payload)
-            {
+        ImageRequest request=new ImageRequest(getContext(), data.imageUrl);
+        request.registerListener(new DownloadFinishListener<Bitmap>() {
+            @Override
+            public void onSucess(Bitmap payload) {
+                holder.image.setImageBitmap(payload);
                 holder.progressBar.setVisibility(View.GONE);
-                try {
-                    byte[] imageBytes = (byte[]) payload;
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                    Log.d(LOG_TAG, "success " + payload);
-                    holder.image.setImageBitmap(bitmap);
-                }catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
             }
-            public void onFail(String errorMessage)
-            {
+
+            @Override
+            public void onFail(String errorMessage) {
                 Log.d(LOG_TAG,"fail "+errorMessage);
                 holder.progressBar.setVisibility(View.GONE);
+
             }
         });
 
-
         holder.progressBar.setVisibility(View.VISIBLE);
-        CacheMash.load(new ImageRequest(getContext(), data.imageUrl))
-                .registerHandler(rh)
+        CacheMash.load(request)
                 .build();
 
         holder.title.setText(data.title);
