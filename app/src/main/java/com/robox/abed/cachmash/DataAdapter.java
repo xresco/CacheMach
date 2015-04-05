@@ -65,12 +65,12 @@ public class DataAdapter extends ArrayAdapter<Data> {
         {
             public void onSucess(Object payload)
             {
+                holder.progressBar.setVisibility(View.GONE);
                 try {
                     byte[] imageBytes = (byte[]) payload;
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     Log.d(LOG_TAG, "success " + payload);
                     holder.image.setImageBitmap(bitmap);
-                    holder.progressBar.setVisibility(View.GONE);
                 }catch (Exception e)
                 {
                     e.printStackTrace();
@@ -84,7 +84,7 @@ public class DataAdapter extends ArrayAdapter<Data> {
         });
 
 
-
+        holder.progressBar.setVisibility(View.VISIBLE);
         CacheMash.load(new ImageRequest(getContext(), data.imageUrl))
                 .registerHandler(rh)
                 .build();

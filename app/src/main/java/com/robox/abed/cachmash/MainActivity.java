@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         data = new Data();
-        data.imageUrl = "https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xpa1/t31.0-8/p960x960/10841844_1542807412634570_5908023753903158595_o.jpg";
+        data.imageUrl = "https://scontent-sin.xx.fbcdn.net/hphotos-xap1/t31.0-8/10861023_1531025870479391_7445632189531582896_o.png";
         data.title = "Pinterest Card 5";
         data.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ant.";
         datas.add(data);
@@ -79,14 +79,14 @@ public class MainActivity extends ActionBarActivity {
 
         data = new Data();
         data.imageUrl = "https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xaf1/t31.0-8/1900607_1415842891997690_1405629767_o.jpg";
-        data.title = "Pinterest Card";
+        data.title = "Pinterest Card 7";
         data.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ant.";
         datas.add(data);
 
 
         data = new Data();
         data.imageUrl = "https://scontent-sin.xx.fbcdn.net/hphotos-xap1/t31.0-8/p960x960/10887387_1530347337213911_2515600953886996644_o.jpg";
-        data.title = "Pinterest Card";
+        data.title = "Pinterest Card 8";
         data.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.";
         datas.add(data);
 
